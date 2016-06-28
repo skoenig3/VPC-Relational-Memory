@@ -9,6 +9,9 @@ data_dir = 'C:\Users\seth.koenig\Documents\MATLAB\VPC Relational Memory\Eye Data
 % datafiles = {'RR150701.2','RR150706.2','RR150707.2'};
 % sets = [1 2 5];
 
+ datafiles = {'RR160616.2'};
+ sets = [2];
+
 % datafiles = {'TO150702.2','TO150706.2','TO150707.2'};
 % sets =  [3 4 6];
 
@@ -16,16 +19,16 @@ data_dir = 'C:\Users\seth.koenig\Documents\MATLAB\VPC Relational Memory\Eye Data
 % sets = [1 3 2 6];
 
 %for across sets and monkeys
-datafiles = {'PW150701.2','PW150706.2','PW150707.2',...
-    'RR150701.2','RR150706.2','RR150707.2',...
-    'TO150702.2','TO150706.2','TO150707.2',...
-    'TT150701.2','TT150702.2','TT150706.2','TT150707.2'};
-sets =  [1 2 5 1 2 5 3 4 6 1 3 2 6];
+% datafiles = {'PW150701.2','PW150706.2','PW150707.2',...
+%     'RR150701.2','RR150706.2','RR150707.2',...
+%     'TO150702.2','TO150706.2','TO150707.2',...
+%     'TT150701.2','TT150702.2','TT150706.2','TT150707.2'};
+% sets =  [1 2 5 1 2 5 3 4 6 1 3 2 6];
 
 
-% for file = 1:length(datafiles)
-%     getVPC_SC_EyeData(datafiles{file},sets(file))
-% end
+for file = 1:length(datafiles)
+    getVPC_SC_EyeData(datafiles{file},sets(file))
+end
 
 propleft_propright = cell(1,length(datafiles));
 novel_transitions = NaN(2,length(datafiles));
