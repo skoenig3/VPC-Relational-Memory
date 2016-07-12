@@ -4,6 +4,7 @@ datafile = 'VPCRMTES.1';
 ITMFile = 'C:\Users\seth.koenig\Documents\MATLAB\VPC Relational Memory\Item and CND Files\2im020.itm';
 CNDFile = 'C:\Users\seth.koenig\Documents\MATLAB\VPC Relational Memory\Item and CND files\2im60.cnd';
 
+data_file = '\\research.wanprc.org\research\Buffalo Lab\Cortex Data\Vivian\PW160425.2';
 [time_arr,event_arr,eog_arr,epp_arr, header,trialcount]  = get_ALLdata(datafile);
 
 

@@ -3,17 +3,20 @@
 %
 data_dir = 'C:\Users\seth.koenig\Documents\MATLAB\VPC Relational Memory\Eye Data\';
 
-% datafiles = {'PW150715.2','PW150716.2','PW150717.2'};
-% sets = [1 3 5];
+datafiles = {'PW150715.2','PW150716.2','PW150717.2'};
+sets = [1 3 5];
 
 % datafiles = {'RR150715.2','RR150716.2','RR150720.2'};
 % sets = [1 3 5];
+% 
+% datafiles = {'RR160627.2'};
+% sets = [2];
 
-datafiles = {'TT150716.2','TT150717.2','TT150720.3'};
-sets = [2 4 6];
+% datafiles = {'TT150716.2','TT150717.2','TT150720.3'};
+% sets = [2 4 6];
 
-datafiles = {'TO150715.2','TO150716.2','TO150717.2'};
-sets = [2 4 6];
+% datafiles = {'TO150715.2','TO150716.2','TO150717.2'};
+% sets = [2 4 6];
 
 % datafiles = {'PW150715.2','PW150716.2','PW150717.2',...
 %     'RR150715.2','RR150716.2','RR150720.2',...
