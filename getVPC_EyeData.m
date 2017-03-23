@@ -2,6 +2,7 @@ function getVPC_EyeData(datafile,itmnum)
 %modified from getSCM_EyeDat by Seth Konig 6/9/2015
 %function imports VPC eye data and calibrates it. 
 
+figure_dir = 'C:\Users\seth.koenig\Documents\MATLAB\VPC Relational Memory\VPC Figures\';
 samprate = 5;
 
 ITMFile = ['C:\Users\seth.koenig\Documents\MATLAB\VPC Relational Memory\Item and CND Files\2im0' num2str(itmnum) '.itm'];
@@ -52,13 +53,15 @@ for i = 7:size(itmfil,1)-1
 end
 
 if strcmpi(datafile(1:2),'PW')
-    datafile = ['\\research.wanprc.org\research\Buffalo Lab\Cortex Data\Vivian\' datafile];
+    datafile = ['\\towerexablox.wanprc.org\Buffalo\Cortex Data\Vivian\' datafile];
 elseif strcmpi(datafile(1:2),'TT')
-    datafile = ['\\research.wanprc.org\research\Buffalo Lab\Cortex Data\Timmy\' datafile];
+    datafile = ['\\towerexablox.wanprc.org\Buffalo\Cortex Data\Timmy\' datafile];
 elseif strcmpi(datafile(1:2),'RR')
-    datafile = ['\\research.wanprc.org\research\Buffalo Lab\Cortex Data\Red\' datafile];
+    datafile = ['\\towerexablox.wanprc.org\Buffalo\Cortex Data\Red\' datafile];
 elseif strcmpi(datafile(1:2),'TO')
-    datafile = ['\\research.wanprc.org\research\Buffalo Lab\Cortex Data\Tobii\' datafile];
+    datafile = ['\\towerexablox.wanprc.org\Buffalo\Cortex Data\Tobii\' datafile];
+elseif strcmpi(datafile(1:2),'MF')
+    datafile = ['\\towerexablox.wanprc.org\Buffalo\Cortex Data\Manfred\' datafile];
 end
 
 %sub function convert raw eye tracking data into x & y coordinates
@@ -120,6 +123,7 @@ end
 for k=1:length(y)
     meany(k)=mean(y{k});
 end
+%%
 
 % old calibration code--removed 5/20/15
 % clear x y
@@ -133,6 +137,34 @@ end
 controlx = [0 0 -3 3 0 0 -6 6 0];
 controly = [0 3 0 0 -3 6 0 0 -6];
 tform = get_calibration_fcn([controlx; controly],[meanx;meany]);
+
+%%
+figure
+subplot(1,2,1)
+hold on
+for i = 1:9
+    xi = x{i};
+    yi = y{i};
+    plot(xi,yi,'*')
+end
+hold off
+title('Raw Calibration Data')
+
+subplot(1,2,2)
+hold on
+hold on
+for i = 1:9
+    xi = x{i};
+    yi = y{i};
+    [xi,yi] = tformfwd(tform,xi,yi);
+    plot(xi,yi,'*')
+end
+plot(controlx,controly,'k+','markersize',5)
+hold off
+title('Post-Hoc Calibration')
+save_and_close_fig(figure_dir,['Estimated_Calibration_'  datafile(end-9:end-2)])
+
+%%
 
 
 numrpt = size(event_arr,2);
