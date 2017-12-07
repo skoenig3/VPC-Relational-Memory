@@ -3,33 +3,51 @@
 %
 data_dir = 'C:\Users\seth.koenig\Documents\MATLAB\VPC Relational Memory\Eye Data\';
 %
+%---Pre-Lesion---%
 % datafiles = {'PW150701.2','PW150706.2','PW150707.2'};
 % sets =  [1 2 5];
-%
+
 % datafiles = {'RR150701.2','RR150706.2','RR150707.2'};
 % sets = [1 2 5];
-
- datafiles = {'RR160616.2'};
- sets = [2];
 
 % datafiles = {'TO150702.2','TO150706.2','TO150707.2'};
 % sets =  [3 4 6];
 
-% datafiles = {'TT150701.2','TT150702.2','TT150706.2','TT150707.2'};
-% sets = [1 3 2 6];
+% datafiles = {'MF170412.2','MF170413.3'};
+% sets = [3 4];
 
 %for across sets and monkeys
 % datafiles = {'PW150701.2','PW150706.2','PW150707.2',...
 %     'RR150701.2','RR150706.2','RR150707.2',...
 %     'TO150702.2','TO150706.2','TO150707.2',...
-%     'TT150701.2','TT150702.2','TT150706.2','TT150707.2'};
-% sets =  [1 2 5 1 2 5 3 4 6 1 3 2 6];
+%     'MF170412.2','MF170413.3'};
+% sets =  [1 2 5 ...
+%     1 2 5 ...
+%     3 4 6 ...
+%     3 4];
+
+%---Post-Lesion---%
+datafiles = {'PW160520.1','PW160524.2','PW160525.2'}; %task may not have worked right
+sets =  [3 4 6];
+
+
+%  datafiles = {'RR160616.2','RR160617.2','RR160620.2'};
+%  sets = [3 4 6];
+
+% datafiles = {'TO170810.2','TO170811.2','TO170814.2'};
+% sets =  [1 2 5];
+
+%---Timmy---%
+% datafiles = {'TT150701.2','TT150702.2','TT150706.2','TT150707.2'};
+% sets = [1 3 2 6];
+
+
 
 
 for file = 1:length(datafiles)
     getVPC_SC_EyeData(datafiles{file},sets(file))
 end
-
+%%
 propleft_propright = cell(1,length(datafiles));
 novel_transitions = NaN(2,length(datafiles));
 for file = 1:length(datafiles)
@@ -142,10 +160,15 @@ prop_novel1 = [];
 prop_novel_corrected1= [];
 prop_novel2 = [];
 prop_novel_corrected2= [];
-prop_novel_time1 = zeros(length(datafiles),1000);
-prop_novel_time2 = zeros(length(datafiles),1000);
-total1 = 0;
-total2 = 0;
+prop_novel_time_short1 = zeros(length(datafiles),1000);
+prop_novel_time_short2 = zeros(length(datafiles),1000);
+prop_novel_time_long1 = zeros(length(datafiles),1000);
+prop_novel_time_long2 = zeros(length(datafiles),1000);
+totalshort1 = 0;
+totalshort2 = 0;
+totallong1 = 0;
+totallong2 = 0;
+
 
 test_transitions = NaN(1,length(datafiles));
 
@@ -187,8 +210,15 @@ for file = 1:length(datafiles)
         if img_pos(2,trial) == -5
             pn((trial+1)/3) = sum(x < 0)./(sum(x < -0) + sum(x > 0));
             pnr((trial+1)/3) = sum(x  < 0)*correction(1,file)./(sum(x < -0) + sum(x > 0));
-            prop_novel_time1(file,x < 0) =  prop_novel_time1(file,x < 0)+1;
-            total1 = total1+1;
+            
+            if trial <= 15 || trial > 45
+                prop_novel_time_long1(file,x < 0) =  prop_novel_time_long1(file,x < 0)+1;
+                totallong1 = totallong1+1;
+            else
+                prop_novel_time_short1(file,x < 0) =  prop_novel_time_short1(file,x < 0)+1;
+                totalshort1 = totalshort1+1;
+            end
+            
             
             timesin = findgaps(find(x< -0.5));
             count = 0;
@@ -202,8 +232,15 @@ for file = 1:length(datafiles)
         else
             pn((trial+1)/3) = sum(x > 0)./(sum(x < -0) + sum(x > 0));
             pnr((trial+1)/3) = sum(x > 0)*correction(2,file)./(sum(x < 0) + sum(x > 0));
-            prop_novel_time1(file,x > 0) =  prop_novel_time1(file,x > 0)+1;
-            total1 = total1 +1;
+            
+            if trial <= 15 || trial > 45
+                prop_novel_time_long1(file,x < 0) =  prop_novel_time_long1(file,x < 0)+1;
+                totallong1 = totallong1+1;
+            else
+                prop_novel_time_short1(file,x < 0) =  prop_novel_time_short1(file,x < 0)+1;
+                totalshort1 = totalshort1+1;
+            end
+            
             
             timesin = findgaps(find(x > 0.5));
             count = 0;
@@ -243,8 +280,16 @@ for file = 1:length(datafiles)
         if img_pos(2,trial) == -5
             pn(trial/3) = sum(x < -0)./(sum(x < -0) + sum(x > 0));
             pnr(trial/3) = sum(x < -0)*correction(1,file)./(sum(x < -0) + sum(x > 0));
-            prop_novel_time2(file,x < -0) =  prop_novel_time2(file,x < -0)+1;
-            total2 = total2+1;
+            
+            if trial <= 15 || trial > 45
+                prop_novel_time_long2(file,x < 0) =  prop_novel_time_long2(file,x < 0)+1;
+                totallong2 = totallong2+1;
+            else
+                prop_novel_time_short2(file,x < 0) =  prop_novel_time_short2(file,x < 0)+1;
+                totalshort2= totalshort2+1;
+            end
+            
+            
             
             timesin = findgaps(find(x< -0.5));
             count = 0;
@@ -258,8 +303,15 @@ for file = 1:length(datafiles)
         else
             pn(trial/3) = sum(x > 0)./(sum(x < -0) + sum(x > 0));
             pnr(trial/3) = sum(x >0)*correction(2,file)./(sum(x < -0) + sum(x > 0));
-            prop_novel_time2(file,x > 0) =  prop_novel_time2(file,x > 0)+1;
-            total2 = total2+1;
+            
+            if trial <= 15 || trial > 45
+                prop_novel_time_long2(file,x < 0) =  prop_novel_time_long2(file,x < 0)+1;
+                totallong22 = totallong2+1;
+            else
+                prop_novel_time_short2(file,x < 0) =  prop_novel_time_short2(file,x < 0)+1;
+                totalshort2 = totalshort2+1;
+            end
+            
             
             timesin = findgaps(find(x > 0.5));
             count = 0;
@@ -326,8 +378,27 @@ legend([cp e1 e2 e3 e4],{'Chance','Observed1','Bias Corrected1','Observed2','Bia
 xlabel('Delay')
 ylim([40 75])
 ylabel('% of Time on Novel Stimulus')
-title(['Novelty Preference: ' datafiles{1}(1:2) ' n = ' num2str(length(short_nov_by_sess2))])
+title(['Novelty Preference: n = ' num2str(length(short_nov_by_sess2))])
 
+%%
+figure
+hold on
+errorb([0.75 1.75],100*[nanmean(short_nov_by_sess1) nanmean(long_nov_by_sess1)],...
+    100*[nanstd(short_nov_by_sess1) nanstd(long_nov_by_sess1)]./sqrt(sum(~isnan(short_nov_by_sess1))));
+errorb([1.25 2.25],100*[nanmean(short_nov_by_sess2) nanmean(long_nov_by_sess2)],...
+    100*[nanstd(short_nov_by_sess2) nanstd(long_nov_by_sess2)]./sqrt(sum(~isnan(short_nov_by_sess2))),...
+    'color','b');
+cp = plot([0 3],[50 50],'k--');
+plot(1,50,'k')
+plot(1,50,'b')
+hold off
+legend('Chance','Observed1','Observed2')
+set(gca,'Xtick',[1:2]);
+set(gca,'XtickLabel',{'Short (~1 sec)','Long (~2 mins)'});
+xlabel('Delay')
+ylim([40 75])
+ylabel('% of Time on Novel Stimulus')
+title(['VPC2SC: n = ' num2str(length(short_nov_by_sess2))])
 %%
 
 set_short_nov1 = NaN(1,6);
@@ -374,14 +445,16 @@ subtitle('Preference across all monkeys and sets (n = 1-3)')
 %%
 figure
 hold on
-dofill(1:5:5000,prop_novel_time1/(10*(total1/length(datafiles))),'blue',1,50)
-dofill(1:5:5000,prop_novel_time2/(10*(total2/length(datafiles))),'red',1,50)
+dofill(1:5:5000,prop_novel_time_short1./totalshort1,'black',1,25)
+dofill(1:5:5000,prop_novel_time_short2./totalshort1,'green',1,25)
+dofill(1:5:5000,prop_novel_time_long1./totalshort1,'blue',1,25)
+dofill(1:5:5000,prop_novel_time_long2./totalshort1,'magenta',1,25)
 plot([0 5000],[50 50],'k--')
 hold off
 xlabel('Time (ms)')
 ylabel('% time looking at novel stimulus')
-legend('Test 1','Test 2')
-title(['Novelty Preference Over Time: ' datafiles{1}(1:2)])
+legend('Short 1','Short 2','Long 1','Long 2')
+title(['VPC2SC: Novelty Preference Over Time'])
 %%
 figure
 hold on

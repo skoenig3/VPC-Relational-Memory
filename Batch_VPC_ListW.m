@@ -3,8 +3,8 @@
 %
 data_dir = 'C:\Users\seth.koenig\Documents\MATLAB\VPC Relational Memory\Eye Data\';
 
-datafiles = {'PW150715.2','PW150716.2','PW150717.2'};
-sets = [1 3 5];
+% datafiles = {'PW150715.2','PW150716.2','PW150717.2'};
+% sets = [1 3 5];
 
 % datafiles = {'RR150715.2','RR150716.2','RR150720.2'};
 % sets = [1 3 5];
@@ -18,16 +18,28 @@ sets = [1 3 5];
 % datafiles = {'TO150715.2','TO150716.2','TO150717.2'};
 % sets = [2 4 6];
 
+
+
+%---Post-lesion---%
+% datafiles = {'PW160602.2','PW160603.2','PW160606.2'};
+% sets = [2 4 6];
+
+% datafiles = {'RR160627.2','RR160629.2','RR160630.2'};
+% sets = [2 4 6];
+
+datafiles = {'TO170822.2','TO170823.2','TO170828.2'};
+sets = [1 3 5];
+
 % datafiles = {'PW150715.2','PW150716.2','PW150717.2',...
 %     'RR150715.2','RR150716.2','RR150720.2',...
 %     'TT150716.2','TT150717.2','TT150720.3',...
 %     'TO150715.2','TO150716.2','TO150717.2'};
 % sets = [1 3 5 1 3 5 2 4 6 2 4 6];
 
-% for file = 1:length(datafiles)
-%     getVPC_List_EyeData(datafiles{file},sets(file))
-% end
-
+for file = 1:length(datafiles)
+    getVPC_List_EyeData(datafiles{file},sets(file))
+end
+%%
 propleft_propright = cell(1,length(datafiles)); %L/R bias for that session
 nov_side = cell(1,length(datafiles)); %the side the repeated or inversely the novel was on
 prop_novel = cell(1,length(datafiles));

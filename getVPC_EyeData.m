@@ -53,15 +53,15 @@ for i = 7:size(itmfil,1)-1
 end
 
 if strcmpi(datafile(1:2),'PW')
-    datafile = ['\\towerexablox.wanprc.org\Buffalo\Cortex Data\Vivian\' datafile];
+    datafile = ['Z:\Cortex Data\Vivian\' datafile];
 elseif strcmpi(datafile(1:2),'TT')
-    datafile = ['\\towerexablox.wanprc.org\Buffalo\Cortex Data\Timmy\' datafile];
+    datafile = ['Z:\Cortex Data\Timmy\' datafile];
 elseif strcmpi(datafile(1:2),'RR')
-    datafile = ['\\towerexablox.wanprc.org\Buffalo\Cortex Data\Red\' datafile];
+    datafile = ['Z:\Cortex Data\Red\' datafile];
 elseif strcmpi(datafile(1:2),'TO')
-    datafile = ['\\towerexablox.wanprc.org\Buffalo\Cortex Data\Tobii\' datafile];
+    datafile = ['Z:\Cortex Data\Tobii\' datafile];
 elseif strcmpi(datafile(1:2),'MF')
-    datafile = ['\\towerexablox.wanprc.org\Buffalo\Cortex Data\Manfred\' datafile];
+    datafile = ['Z:\Cortex Data\Manfred\' datafile];
 end
 
 %sub function convert raw eye tracking data into x & y coordinates

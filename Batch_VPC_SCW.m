@@ -3,6 +3,7 @@
 %
 data_dir = 'C:\Users\seth.koenig\Documents\MATLAB\VPC Relational Memory\Eye Data\';
 
+%---Pre-Lesion---%
 % datafiles = {'PW150710.2','PW150713.2','PW150714.2'};
 % sets = [7 9 11];
 
@@ -12,19 +13,45 @@ data_dir = 'C:\Users\seth.koenig\Documents\MATLAB\VPC Relational Memory\Eye Data
 % datafiles = {'TO150710.2','TO150713.2','TO150714.2'};
 % sets = [8 10 12];
 
+% datafiles =  {'MF170414.2','MF170418.2','MF170419.2'};
+% sets = [8 10 12];
+
+% datafiles = {'PW150710.2','PW150713.2','PW150714.2',...
+%              'RR150710.2','RR150713.2','RR150714.2',...
+%              'TO150710.2','TO150713.2','TO150714.2',...
+%               'MF170414.2','MF170418.2','MF170419.2'};
+% 
+% sets = [7 9 11 ...
+%         7 9 11 ...
+%         8 10 12 ...
+%         8 10 12];
+
+
+%---Post-Lesion---%
+% datafiles = {'TO170815.2','TO170817.2','TO170821.2'};
+% sets = [7 9 11];
+
+
+datafiles = {'PW160531.2','PW160601.2'};
+sets = [10 12];
+
+% datafiles = {'RR160622.2','RR160623.2','RR160624.2'};
+% sets = [8 10 12];
+%---Timmy---%
+
+
+
 % datafiles = {'TT150713.2','TT150714.2'};
 % sets = [10 12];
 
-datafiles = {'PW150710.2','PW150713.2','PW150714.2',...
-             'RR150710.2','RR150713.2','RR150714.2',...
-             'TO150710.2','TO150713.2','TO150714.2',...
-             'TT150713.2','TT150714.2'};
-sets = [7 9 11 7 9 11 8 10 12 10 12];
 
-% for file = 1:length(datafiles)
-%     getVPC_SCW_EyeData(datafiles{file},sets(file))
-% end
 
+
+
+for file = 1:length(datafiles)
+    getVPC_SCW_EyeData(datafiles{file},sets(file))
+end
+%%
 propleft_propright = cell(1,length(datafiles));
 novel_transitions = NaN(2,length(datafiles));
 for file = 1:length(datafiles)
